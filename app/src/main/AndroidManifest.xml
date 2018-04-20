@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ViewReceipts" />
+        <activity android:name=".AddReceipt"></activity>
     </application>
 
 </manifest>
