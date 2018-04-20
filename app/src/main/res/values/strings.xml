@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Personal Expenditures</string>
+    <string name="btn_viewReceipt">View Receipts</string>
+    <string name="btn_addReceipt">Add Receipt</string>
 </resources>
