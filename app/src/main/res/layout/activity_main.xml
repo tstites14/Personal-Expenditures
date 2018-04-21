@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_addReceipt"
+        android:id="@+id/btn_viewReceipt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="32dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_logo" />
 
     <Button
-        android:id="@+id/btn_viewReceipt"
+        android:id="@+id/btn_addReceipt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginBottom="168dp"
@@ -58,6 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_addReceipt" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewReceipt" />
 
 </android.support.constraint.ConstraintLayout>
