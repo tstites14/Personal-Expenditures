@@ -9,7 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
+import edu.ccm.tstites.personalexpenditures.CoreObjects.Receipt;
 import edu.ccm.tstites.personalexpenditures.R;
 
 /**
@@ -17,16 +26,80 @@ import edu.ccm.tstites.personalexpenditures.R;
  */
 
 public class ViewReceiptsFragment extends Fragment {
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
+    private RVAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_view, container, false);
 
-        recyclerView = v.findViewById(R.id.viewFragment);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView = v.findViewById(R.id.viewFragment);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        update();
 
         return v;
+    }
+
+    private void update() {
+        List<Receipt> receipts = AccountRegister.get(getActivity()).getReceipts();
+
+        if (mAdapter == null) {
+            mAdapter = new RVAdapter();
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class RVHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        ImageView mReceiptImage;
+        TextView mTitle;
+        TextView mDescription;
+
+        public RVHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.receipt_item, parent, false));
+
+            mTitle = itemView.findViewById(R.id.txt_title);
+            mDescription = itemView.findViewById(R.id.txt_category);
+            mReceiptImage = itemView.findViewById(R.id.receipt_image);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bind(Receipt receipt) {
+            mTitle.setText(R.string.txt_title);
+            mDescription.setText(R.string.txt_category);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    private class RVAdapter extends RecyclerView.Adapter<RVHolder> {
+        AccountRegister register = AccountRegister.get(getActivity());
+        List<Receipt> mReceipts = register.getReceipts();
+
+        @NonNull
+        @Override
+        public RVHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+            return new RVHolder(inflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RVHolder holder, int position) {
+            Receipt receipt = mReceipts.get(position);
+            holder.bind(receipt);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mReceipts.size();
+        }
     }
 }
