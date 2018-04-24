@@ -7,10 +7,10 @@
                 android:width="75dp"
                 android:height="25dp"/>
             <stroke
-                android:color="#FFFFFFFF"
+                android:color="@color/buttonBorder"
                 android:width="1dp"/>
             <solid
-                android:color="#10FFFFFF"/>
+                android:color="@color/buttonBackground"/>
             <corners
                 android:radius="10dp"/>
         </shape>

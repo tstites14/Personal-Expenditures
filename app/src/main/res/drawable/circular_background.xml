@@ -2,12 +2,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="#80000000"/>
+            <solid android:color="@color/imageBackground"/>
             <size
                 android:width="45dp"
                 android:height="45dp"/>
             <stroke
-                android:color="#80FFFFFF"
+                android:color="@color/imageBorder"
                 android:width="1dp"/>
         </shape>
     </item>
