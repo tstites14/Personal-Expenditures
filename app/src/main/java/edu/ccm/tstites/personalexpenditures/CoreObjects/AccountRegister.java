@@ -2,11 +2,13 @@ package edu.ccm.tstites.personalexpenditures.CoreObjects;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ccm.tstites.personalexpenditures.Database.AccountCursor;
 import edu.ccm.tstites.personalexpenditures.Database.AccountDBHelper;
 import edu.ccm.tstites.personalexpenditures.Database.AccountDBSchema;
 
@@ -40,9 +42,18 @@ public class AccountRegister {
 
     public List<Receipt> getReceipts() {
         List<Receipt> receipts = new ArrayList<>();
+        AccountCursor cursor = queryReceipts(null, null);
 
-        for (int i = 0; i < 10; i++) {
-            receipts.add(new Receipt());
+        try {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                receipts.add(cursor.getReceipt());
+
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
         }
 
         return receipts;
@@ -58,5 +69,12 @@ public class AccountRegister {
         cv.put(AccountDBSchema.Accounts.Columns.LOCATION, receipt.getLocation());
 
         return cv;
+    }
+
+    private AccountCursor queryReceipts(String where, String[] whereArgs) {
+        Cursor cursor = mDB.query(AccountDBSchema.Accounts.NAME, null, where, whereArgs,
+                null, null, null);
+
+        return new AccountCursor(cursor);
     }
 }
