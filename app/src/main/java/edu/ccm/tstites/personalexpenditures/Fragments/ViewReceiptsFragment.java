@@ -1,4 +1,4 @@
-package edu.ccm.tstites.personalexpenditures.fragments;
+package edu.ccm.tstites.personalexpenditures.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,15 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
@@ -99,6 +97,7 @@ public class ViewReceiptsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            Log.i("VIEWRECEIPTS", "mReceipts size is: " + mReceipts.size());
             return mReceipts.size();
         }
     }
