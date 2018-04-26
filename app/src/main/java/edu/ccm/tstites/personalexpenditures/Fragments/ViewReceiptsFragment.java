@@ -68,7 +68,6 @@ public class ViewReceiptsFragment extends Fragment {
         public void bind(Receipt receipt) {
             mTitle.setText(receipt.getTitle());
             mCategory.setText(receipt.getCategory());
-
         }
 
         @Override

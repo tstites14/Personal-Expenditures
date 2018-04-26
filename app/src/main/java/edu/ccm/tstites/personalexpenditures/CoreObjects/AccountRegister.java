@@ -67,6 +67,7 @@ public class AccountRegister {
         cv.put(AccountDBSchema.Accounts.Columns.CATEGORY, receipt.getCategory());
         cv.put(AccountDBSchema.Accounts.Columns.DATE, receipt.getDate().toString());
         cv.put(AccountDBSchema.Accounts.Columns.LOCATION, receipt.getLocation());
+        cv.put(AccountDBSchema.Accounts.Columns.COST, receipt.getCost());
 
         return cv;
     }

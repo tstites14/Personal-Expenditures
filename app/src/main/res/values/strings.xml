@@ -9,4 +9,5 @@
     <string name="edt_title">Transaction name:</string>
     <string name="edt_category">Category:</string>
     <string name="edt_location">Location:</string>
+    <string name="edt_cost">Cost:</string>
 </resources>

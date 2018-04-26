@@ -14,6 +14,7 @@ public class AccountDBSchema {
             public static final String DATE = "date";
             public static final String CATEGORY = "category";
             public static final String LOCATION = "location";
+            public static final String COST = "cost";
         }
     }
 }

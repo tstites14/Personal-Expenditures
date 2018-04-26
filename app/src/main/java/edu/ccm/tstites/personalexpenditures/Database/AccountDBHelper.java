@@ -27,7 +27,8 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                 Accounts.Columns.TITLE + ", " +
                 Accounts.Columns.CATEGORY + ", " +
                 Accounts.Columns.DATE +  ", " +
-                Accounts.Columns.LOCATION + ")");
+                Accounts.Columns.LOCATION + ", " +
+                Accounts.Columns.COST + ")");
     }
 
     @Override

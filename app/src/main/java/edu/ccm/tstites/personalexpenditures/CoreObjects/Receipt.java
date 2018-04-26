@@ -13,6 +13,7 @@ public class Receipt {
     private String mTitle;
     private String mCategory;
     private String mLocation;
+    private double mCost;
     private Date mDate;
     private File mReceiptImage;
 
@@ -56,6 +57,14 @@ public class Receipt {
 
     public void setLocation(String mLocation) {
         this.mLocation = mLocation;
+    }
+
+    public double getCost() {
+        return mCost;
+    }
+
+    public void setCost(double mCost) {
+        this.mCost = mCost;
     }
 
     public Date getDate() {

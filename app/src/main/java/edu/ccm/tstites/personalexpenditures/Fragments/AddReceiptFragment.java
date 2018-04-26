@@ -25,6 +25,7 @@ public class AddReceiptFragment extends Fragment {
     private EditText mTitle;
     private EditText mCategory;
     private EditText mLocation;
+    private EditText mCost;
     private ImageView mReceiptImage;
     private ImageButton mSaveButton;
 
@@ -38,6 +39,8 @@ public class AddReceiptFragment extends Fragment {
         mCategory = v.findViewById(R.id.edt_category);
 
         mLocation = v.findViewById(R.id.edt_location);
+
+        mCost = v.findViewById(R.id.edt_cost);
 
         mReceiptImage = v.findViewById(R.id.add_receipt_image);
         mReceiptImage.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +58,7 @@ public class AddReceiptFragment extends Fragment {
                 receipt.setTitle(mTitle.getText().toString());
                 receipt.setCategory(mCategory.getText().toString());
                 receipt.setLocation(mLocation.getText().toString());
+                receipt.setCost(Double.parseDouble(mCost.getText().toString()));
                 receipt.setReceiptImage(null);
 
                 AccountRegister.get(getActivity()).addReceipt(receipt);
