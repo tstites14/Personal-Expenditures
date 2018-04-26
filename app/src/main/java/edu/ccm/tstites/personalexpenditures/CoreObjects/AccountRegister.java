@@ -1,9 +1,12 @@
 package edu.ccm.tstites.personalexpenditures.CoreObjects;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.ccm.tstites.personalexpenditures.Database.AccountDBHelper;
 
 /**
  * Created by tstites on 4/21/2018.
@@ -12,9 +15,11 @@ import java.util.List;
 public class AccountRegister {
     private static AccountRegister sRegister;
     private Context mContext;
+    private SQLiteDatabase mDB;
 
     public AccountRegister(Context context) {
         mContext = context.getApplicationContext();
+        mDB = new AccountDBHelper(mContext).getWritableDatabase();
     }
 
     public static AccountRegister get(Context context) {
