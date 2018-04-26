@@ -2,12 +2,14 @@ package edu.ccm.tstites.personalexpenditures.CoreObjects;
 
 import java.io.File;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by tstites on 4/21/2018.
  */
 
 public class Receipt {
+    private UUID mUUID;
     private String mTitle;
     private String mCategory;
     private String mLocation;
@@ -15,7 +17,21 @@ public class Receipt {
     private File mReceiptImage;
 
     public Receipt() {
+        mUUID = UUID.randomUUID();
         mDate = new Date();
+    }
+
+    public Receipt(UUID id) {
+        mUUID = id;
+        mDate = new Date();
+    }
+
+    public UUID getUUID() {
+        return mUUID;
+    }
+
+    public void setUUID(UUID mUUID) {
+        this.mUUID = mUUID;
     }
 
     public String getTitle() {

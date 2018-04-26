@@ -23,6 +23,7 @@ public class AccountDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + Accounts.NAME +
         "(_id integer primary key autoincrement, " +
+                Accounts.Columns.UUID + ", " +
                 Accounts.Columns.TITLE + ", " +
                 Accounts.Columns.CATEGORY + ", " +
                 Accounts.Columns.DATE +  ", " +
