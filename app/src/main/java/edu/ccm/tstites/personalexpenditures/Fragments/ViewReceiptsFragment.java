@@ -54,20 +54,20 @@ public class ViewReceiptsFragment extends Fragment {
     private class RVHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mReceiptImage;
         TextView mTitle;
-        TextView mDescription;
+        TextView mCategory;
 
         public RVHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.receipt_item, parent, false));
 
             mTitle = itemView.findViewById(R.id.txt_title);
-            mDescription = itemView.findViewById(R.id.txt_category);
+            mCategory = itemView.findViewById(R.id.txt_category);
             mReceiptImage = itemView.findViewById(R.id.receipt_image);
             itemView.setOnClickListener(this);
         }
 
         public void bind(Receipt receipt) {
-            mTitle.setText(R.string.txt_title);
-            mDescription.setText(R.string.txt_category);
+            mTitle.setText(receipt.getTitle());
+            mCategory.setText(receipt.getCategory());
 
         }
 
