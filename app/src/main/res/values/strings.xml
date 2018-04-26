@@ -5,4 +5,8 @@
     <string name="txt_title">Title</string>
     <string name="txt_category">Category</string>
     <string name="img_RVThumb">Image of a transaction\'s receipt (if available)</string>
+    <string name="img_saveButton">Image of a save icon</string>
+    <string name="edt_title">Transaction name:</string>
+    <string name="edt_category">Category:</string>
+    <string name="edt_location">Location:</string>
 </resources>
