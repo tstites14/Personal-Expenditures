@@ -1,7 +1,6 @@
 package edu.ccm.tstites.personalexpenditures;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         btnViewReceipts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ViewReceipts.class));
+                startActivity(new Intent(MainActivity.this, ViewReceiptsActivity.class));
             }
         });
 
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddReceipt.class));
+                startActivity(new Intent(MainActivity.this, AddReceiptActivity.class));
             }
         });
     }

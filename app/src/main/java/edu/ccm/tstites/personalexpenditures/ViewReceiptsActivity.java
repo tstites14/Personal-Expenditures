@@ -1,22 +1,22 @@
 package edu.ccm.tstites.personalexpenditures;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
+import edu.ccm.tstites.personalexpenditures.Fragments.ViewReceiptsFragment;
 
-import edu.ccm.tstites.personalexpenditures.fragments.AddReceiptFragment;
+public class ViewReceiptsActivity extends FragmentActivity {
 
-public class AddReceipt extends FragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return new AddReceiptFragment();
+        return new ViewReceiptsFragment();
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_receipt);
+        setContentView(R.layout.activity_view_receipts);
 
-        startFragment(R.id.addReceipt);
+        startFragment(R.id.viewReceipts);
     }
 }
