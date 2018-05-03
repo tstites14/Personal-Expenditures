@@ -66,7 +66,7 @@ public class AccountRegister {
         return receipts;
     }
 
-    private void addCash(double cash) {
+    public void addCash(double cash) {
         mCurrentCash += cash;
 
         SharedPreferences pref = mContext.getSharedPreferences("CashValues",
@@ -86,7 +86,7 @@ public class AccountRegister {
         editor.apply();
     }
 
-    private double getCash() {
+    public double getCash() {
         SharedPreferences pref = mContext.getSharedPreferences("CashValues",
                 Context.MODE_PRIVATE);
         long longCashValue = pref.getLong("CurrentCash", 0);
@@ -94,7 +94,7 @@ public class AccountRegister {
         return Double.longBitsToDouble(longCashValue);
     }
 
-    private static ContentValues getCV(Receipt receipt) {
+    public static ContentValues getCV(Receipt receipt) {
         ContentValues cv = new ContentValues();
 
         cv.put(AccountDBSchema.Accounts.Columns.UUID, receipt.getUUID().toString());

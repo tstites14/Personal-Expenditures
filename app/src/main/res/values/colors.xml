@@ -9,5 +9,6 @@
     <color name="buttonBorder">#FFFFFFFF</color>
     <color name="pressedButtonBorder">#4DFFFFFF</color>
     <color name="positiveCashValue">#00FF00</color>
+    <color name="moderateCashValue">#FF8C00</color>
     <color name="negativeCashValue">#FF0000</color>
 </resources>

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
+
 public class InitialCashActivity extends AppCompatActivity {
 
     private EditText edt_balance;
@@ -18,7 +20,7 @@ public class InitialCashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_cash);
 
-        final SharedPreferences pref = getSharedPreferences("CashValues", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("CashValues", MODE_PRIVATE);
         if (pref.getLong("CurrentCash", -1) != -1) {
             startActivity(new Intent(InitialCashActivity.this, MainActivity.class));
         }
@@ -29,10 +31,8 @@ public class InitialCashActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putLong("CurrentCash", Double.doubleToLongBits(
-                        Double.parseDouble(edt_balance.getText().toString())));
-                editor.apply();
+                AccountRegister.get(getApplicationContext()).addCash(
+                    Double.parseDouble(edt_balance.getText().toString()));
 
                 startActivity(new Intent(InitialCashActivity.this, MainActivity.class));
             }

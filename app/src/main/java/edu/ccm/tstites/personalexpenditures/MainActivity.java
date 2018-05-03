@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView txtCurrentCash;
@@ -22,15 +24,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getSharedPreferences("CashValues", MODE_PRIVATE);
-        Double cash = Double.longBitsToDouble(pref.getLong("CurrentCash", 0));
+        Double cash = AccountRegister.get(getApplicationContext()).getCash();
 
         txtCurrentCash = findViewById(R.id.txt_currentCash);
         txtCurrentCash.setText(String.format(getString(R.string.txt_currentCash), formatCash(cash)));
-        txtCurrentCash.setTextColor(
-                (cash >= 0)
-                ? getResources().getColor(R.color.positiveCashValue)
-                : getResources().getColor(R.color.negativeCashValue));
+        txtCurrentCash.setTextColor(getCashColor(cash));
 
         btnViewReceipts = findViewById(R.id.btn_viewReceipt);
         btnViewReceipts.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +47,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private int getCashColor(double cash) {
+    if (cash > 100) {
+        return getResources().getColor(R.color.positiveCashValue);
+    } else if (cash > 0 && cash < 100) {
+        return getResources().getColor(R.color.moderateCashValue);
+    } else {
+            return getResources().getColor(R.color.negativeCashValue);
+        }
+    }
+
     private String formatCash(double cash) {
-        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
-        return format.format(cash);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        return formatter.format(cash);
     }
 }
