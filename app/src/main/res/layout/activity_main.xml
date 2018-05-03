@@ -24,13 +24,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txt_currentCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/txt_currentCash"
+        android:textColor="@color/positiveCashValue"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_logo" />
+
     <Button
         android:id="@+id/btn_viewReceipt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/button"
         android:text="@string/btn_viewReceipt"
         android:textAllCaps="false"
@@ -39,13 +53,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_currentCash" />
 
     <Button
         android:id="@+id/btn_addReceipt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginBottom="140dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
@@ -56,8 +70,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_viewReceipt" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewReceipt"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

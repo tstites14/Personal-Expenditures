@@ -63,7 +63,7 @@ public class Receipt {
         return mCost;
     }
 
-    public void setCost(double mCost) {
+    public void setCost(double Cost) {
         this.mCost = mCost;
     }
 

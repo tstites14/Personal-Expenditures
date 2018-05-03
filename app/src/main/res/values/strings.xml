@@ -1,5 +1,9 @@
 <resources>
+    <string name="txt_initialMessage">Since this is your first time using Personal Expenditures, please enter an initial balance so we can properly calculate your account\'s balance</string>
+    <string name="edt_balace">Balance</string>
+    <string name="btn_next">Next</string>
     <string name="app_name">Personal Expenditures</string>
+    <string name="txt_currentCash">Balance: %1$s</string>
     <string name="btn_viewReceipt">View Receipts</string>
     <string name="btn_addReceipt">Add Receipt</string>
     <string name="txt_title">Title</string>

@@ -2,8 +2,10 @@ package edu.ccm.tstites.personalexpenditures.CoreObjects;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,15 @@ public class AccountRegister {
     private static AccountRegister sRegister;
     private Context mContext;
     private SQLiteDatabase mDB;
+    private double mCurrentCash;
 
     public AccountRegister(Context context) {
         mContext = context.getApplicationContext();
         mDB = new AccountDBHelper(mContext).getWritableDatabase();
+
+        SharedPreferences pref = mContext.getSharedPreferences("CashValues",
+                Context.MODE_PRIVATE);
+        mCurrentCash = Double.longBitsToDouble(pref.getLong("CurrentCash", 0));
     }
 
     public static AccountRegister get(Context context) {
@@ -57,6 +64,34 @@ public class AccountRegister {
         }
 
         return receipts;
+    }
+
+    private void addCash(double cash) {
+        mCurrentCash += cash;
+
+        SharedPreferences pref = mContext.getSharedPreferences("CashValues",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putLong("CurrentCash", Double.doubleToLongBits(mCurrentCash));
+        editor.apply();
+    }
+
+    private void subtractCash(double cash) {
+        mCurrentCash -= cash;
+
+        SharedPreferences pref = mContext.getSharedPreferences("CashValues",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putLong("CurrentCash", Double.doubleToLongBits(mCurrentCash));
+        editor.apply();
+    }
+
+    private double getCash() {
+        SharedPreferences pref = mContext.getSharedPreferences("CashValues",
+                Context.MODE_PRIVATE);
+        long longCashValue = pref.getLong("CurrentCash", 0);
+
+        return Double.longBitsToDouble(longCashValue);
     }
 
     private static ContentValues getCV(Receipt receipt) {
