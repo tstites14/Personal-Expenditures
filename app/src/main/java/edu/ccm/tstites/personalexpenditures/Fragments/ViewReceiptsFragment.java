@@ -70,16 +70,6 @@ public class ViewReceiptsFragment extends Fragment {
             itemView.setOnClickListener(this);
         }
 
-        public void bind(Receipt receipt) {
-            mTitle.setText(receipt.getTitle());
-            mCategory.setText(receipt.getCategory());
-        }
-
-        public void bind(Paycheck paycheck) {
-            mTitle.setText(String.valueOf(paycheck.getPayAmount()));
-            mCategory.setText(paycheck.getEmployer());
-        }
-
         public void bind(Transactions transaction) {
             mTitle.setText(transaction.getTitle());
             mCategory.setText(transaction.getCategory());
