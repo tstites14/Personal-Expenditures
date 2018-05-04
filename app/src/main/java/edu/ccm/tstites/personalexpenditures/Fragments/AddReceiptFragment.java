@@ -64,6 +64,8 @@ public class AddReceiptFragment extends Fragment {
                 receipt.setReceiptImage(null);
 
                 AccountRegister.get(getActivity()).addReceipt(receipt);
+                AccountRegister.get(getActivity()).subtractCash(Double.parseDouble(
+                    mCost.getText().toString()));
                 Log.i("ADDRECEIPT", "Save button clicked");
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }

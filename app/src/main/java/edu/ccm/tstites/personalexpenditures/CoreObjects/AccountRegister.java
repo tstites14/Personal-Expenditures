@@ -117,7 +117,7 @@ public class AccountRegister {
         editor.apply();
     }
 
-    private void subtractCash(double cash) {
+    public void subtractCash(double cash) {
         mCurrentCash -= cash;
 
         SharedPreferences pref = mContext.getSharedPreferences("CashValues",

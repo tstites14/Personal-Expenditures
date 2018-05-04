@@ -44,6 +44,8 @@ public class AddPaycheckFragment extends Fragment {
                 paycheck.setEmployer(edtEmployer.getText().toString());
 
                 AccountRegister.get(getActivity()).addPaycheck(paycheck);
+                AccountRegister.get(getActivity()).addCash(Double.parseDouble(
+                    edtPayAmount.getText().toString()));
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });

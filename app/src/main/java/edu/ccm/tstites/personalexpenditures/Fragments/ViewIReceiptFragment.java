@@ -58,6 +58,8 @@ public class ViewIReceiptFragment extends Fragment {
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountRegister.get(getActivity()).addCash(Double.parseDouble(
+                        mCost.getText().toString()) - receipt.getCost());
                 receipt.setTitle(mTitle.getText().toString());
                 receipt.setCategory(mCategory.getText().toString());
                 receipt.setLocation(mLocation.getText().toString());

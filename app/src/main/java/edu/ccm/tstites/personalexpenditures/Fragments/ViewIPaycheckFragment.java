@@ -48,6 +48,8 @@ public class ViewIPaycheckFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountRegister.get(getActivity()).addCash(
+                        Double.parseDouble(mPayAmount.getText().toString()) - paycheck.getPayAmount());
                 paycheck.setPayAmount(Double.parseDouble(mPayAmount.getText().toString()));
                 paycheck.setEmployer(mEmployer.getText().toString());
 
