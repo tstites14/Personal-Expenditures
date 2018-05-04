@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import edu.ccm.tstites.personalexpenditures.Database.AccountDBSchema.Accounts;
+import edu.ccm.tstites.personalexpenditures.Database.AccountDBSchema.Paychecks;
 
 /**
  * Created by tstites on 4/26/2018.
@@ -26,14 +27,22 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                 Accounts.Columns.UUID + ", " +
                 Accounts.Columns.TITLE + ", " +
                 Accounts.Columns.CATEGORY + ", " +
-                Accounts.Columns.DATE +  ", " +
+                Accounts.Columns.DATE + ", " +
                 Accounts.Columns.LOCATION + ", " +
                 Accounts.Columns.COST + ")");
+
+        db.execSQL("CREATE TABLE " + Paychecks.NAME +
+        "(_id integer primary key autoincrement, " +
+                Paychecks.Columns.UUID + ", " +
+                Paychecks.Columns.DATE + ", " +
+                Paychecks.Columns.AMOUNT + ", " +
+                Paychecks.Columns.EMPLOYER + ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + Accounts.NAME);
+        db.execSQL("drop table if exists " + Paychecks.NAME);
         onCreate(db);
     }
 }

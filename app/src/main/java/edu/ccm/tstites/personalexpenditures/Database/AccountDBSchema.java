@@ -17,4 +17,15 @@ public class AccountDBSchema {
             public static final String COST = "cost";
         }
     }
+
+    public static final class Paychecks {
+        public static final String NAME = "paychecks";
+
+        public static final class Columns {
+            public static final String UUID = "uuid";
+            public static final String DATE = "date";
+            public static final String AMOUNT = "amount";
+            public static final String EMPLOYER = "employer";
+        }
+    }
 }

@@ -4,8 +4,9 @@
     <string name="btn_next">Next</string>
     <string name="app_name">Personal Expenditures</string>
     <string name="txt_currentCash">Balance: %1$s</string>
-    <string name="btn_viewReceipt">View Receipts</string>
+    <string name="btn_viewReceipt">View Transactions</string>
     <string name="btn_addReceipt">Add Receipt</string>
+    <string name="btn_addPaycheck">Add Paycheck</string>
     <string name="txt_title">Title</string>
     <string name="txt_category">Category</string>
     <string name="img_RVThumb">Image of a transaction\'s receipt (if available)</string>
@@ -14,4 +15,6 @@
     <string name="edt_category">Category</string>
     <string name="edt_location">Location</string>
     <string name="edt_cost">Cost</string>
+    <string name="edt_payAmount">Paycheck value</string>
+    <string name="edt_employer">Employer</string>
 </resources>

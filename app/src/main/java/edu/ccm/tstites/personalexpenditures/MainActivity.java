@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtCurrentCash;
     Button btnViewReceipts;
     Button btnAddReceipt;
+    Button btnAddPaycheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, AddReceiptActivity.class));
+            }
+        });
+
+        btnAddPaycheck = findViewById(R.id.btn_addPaycheck);
+        btnAddPaycheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddPaycheckActivity.class));
             }
         });
     }

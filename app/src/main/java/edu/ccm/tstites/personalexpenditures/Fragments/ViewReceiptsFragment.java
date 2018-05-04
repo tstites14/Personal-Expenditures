@@ -13,10 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
+import edu.ccm.tstites.personalexpenditures.CoreObjects.Paycheck;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Receipt;
+import edu.ccm.tstites.personalexpenditures.Interfaces.Transactions;
 import edu.ccm.tstites.personalexpenditures.R;
 
 /**
@@ -70,6 +75,16 @@ public class ViewReceiptsFragment extends Fragment {
             mCategory.setText(receipt.getCategory());
         }
 
+        public void bind(Paycheck paycheck) {
+            mTitle.setText(String.valueOf(paycheck.getPayAmount()));
+            mCategory.setText(paycheck.getEmployer());
+        }
+
+        public void bind(Transactions transaction) {
+            mTitle.setText(transaction.getTitle());
+            mCategory.setText(transaction.getCategory());
+        }
+
         @Override
         public void onClick(View v) {
 
@@ -79,6 +94,8 @@ public class ViewReceiptsFragment extends Fragment {
     private class RVAdapter extends RecyclerView.Adapter<RVHolder> {
         AccountRegister register = AccountRegister.get(getActivity());
         List<Receipt> mReceipts = register.getReceipts();
+        List<Paycheck> mPaychecks = register.getPaychecks();
+        List<Transactions> mTransactions = getOrganizedTransactions(mReceipts, mPaychecks);
 
         @NonNull
         @Override
@@ -90,14 +107,30 @@ public class ViewReceiptsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull RVHolder holder, int position) {
-            Receipt receipt = mReceipts.get(position);
-            holder.bind(receipt);
+            holder.bind(mTransactions.get(position));
         }
 
         @Override
         public int getItemCount() {
-            Log.i("VIEWRECEIPTS", "mReceipts size is: " + mReceipts.size());
-            return mReceipts.size();
+            Log.i("VIEWRECEIPTS", "mTransactions size is: " + mTransactions.size());
+            return mTransactions.size();
+        }
+
+        private List<Transactions> getOrganizedTransactions(List<Receipt> receipts, List<Paycheck> paychecks) {
+            List<Transactions> organizedList = new ArrayList<>();
+            List<Date> listDates = new ArrayList<>();
+
+            //Combines receipts and paychecks into one list
+            organizedList.addAll(receipts);
+            organizedList.addAll(paychecks);
+
+            for (int i = 0; i < organizedList.size(); i++) {
+                listDates.add(i, organizedList.get(i).getDate());
+            }
+
+            Collections.sort(organizedList, Collections.<Transactions>reverseOrder());
+
+            return organizedList;
         }
     }
 }

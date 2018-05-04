@@ -59,12 +59,29 @@
         android:id="@+id/btn_addReceipt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:text="@string/btn_addReceipt"
+        android:textAllCaps="false"
+        android:textColor="#C0FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewReceipt" />
+
+    <Button
+        android:id="@+id/btn_addPaycheck"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="76dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button"
-        android:text="@string/btn_addReceipt"
+        android:text="@string/btn_addPaycheck"
         android:textAllCaps="false"
         android:textColor="#C0FFFFFF"
         android:textSize="20sp"
@@ -72,7 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_viewReceipt"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_addReceipt" />
 
 </android.support.constraint.ConstraintLayout>
