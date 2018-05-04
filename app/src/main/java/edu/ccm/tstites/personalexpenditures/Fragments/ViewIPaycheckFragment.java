@@ -1,5 +1,6 @@
 package edu.ccm.tstites.personalexpenditures.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +17,7 @@ import java.util.UUID;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Paycheck;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Receipt;
+import edu.ccm.tstites.personalexpenditures.MainActivity;
 import edu.ccm.tstites.personalexpenditures.R;
 
 /**
@@ -23,19 +26,35 @@ import edu.ccm.tstites.personalexpenditures.R;
 
 public class ViewIPaycheckFragment extends Fragment {
 
+    EditText mPayAmount;
+    EditText mEmployer;
+    ImageButton btnSave;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_paycheck, container, false);
 
         String id = this.getArguments().getString("transactionID");
-        Paycheck paycheck = (Paycheck) AccountRegister.get(getActivity()).findTransaction(id);
+        final Paycheck paycheck = (Paycheck) AccountRegister.get(getActivity()).findTransaction(id);
 
-        EditText edtPayAmount = v.findViewById(R.id.edt_payAmount);
-        edtPayAmount.setText(String.valueOf(paycheck.getPayAmount()));
+        mPayAmount = v.findViewById(R.id.edt_payAmount);
+        mPayAmount.setText(String.valueOf(paycheck.getPayAmount()));
 
-        EditText edtEmployer = v.findViewById(R.id.edt_employer);
-        edtEmployer.setText(paycheck.getEmployer());
+        mEmployer = v.findViewById(R.id.edt_employer);
+        mEmployer.setText(paycheck.getEmployer());
+
+        btnSave = v.findViewById(R.id.btn_savePaycheck);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paycheck.setPayAmount(Double.parseDouble(mPayAmount.getText().toString()));
+                paycheck.setEmployer(mEmployer.getText().toString());
+
+                AccountRegister.get(getActivity()).updatePaycheck(paycheck);
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
 
         return v;
     }

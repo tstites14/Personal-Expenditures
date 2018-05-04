@@ -47,10 +47,26 @@ public class AccountRegister {
         mDB.insert(AccountDBSchema.Accounts.NAME, null, cv);
     }
 
+    public void updateReceipt(Receipt receipt) {
+        ContentValues cv = getCV(receipt);
+
+        mDB.update(AccountDBSchema.Accounts.NAME, cv,
+                AccountDBSchema.Accounts.Columns.UUID + " = ? ",
+                new String[] {receipt.getUUID().toString()});
+    }
+
     public void addPaycheck(Paycheck paycheck) {
         ContentValues cv = getCV(paycheck);
 
         mDB.insert(AccountDBSchema.Paychecks.NAME, null, cv);
+    }
+
+    public void updatePaycheck(Paycheck paycheck) {
+        ContentValues cv = getCV(paycheck);
+
+        mDB.update(AccountDBSchema.Paychecks.NAME, cv,
+                AccountDBSchema.Paychecks.Columns.UUID + " = ? ",
+                new String[] {paycheck.getUUID().toString()});
     }
 
     public List<Receipt> getReceipts() {
