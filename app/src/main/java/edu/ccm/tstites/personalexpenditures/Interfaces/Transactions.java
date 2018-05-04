@@ -3,6 +3,7 @@ package edu.ccm.tstites.personalexpenditures.Interfaces;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by tstites on 5/3/2018.
@@ -13,6 +14,7 @@ public interface Transactions extends Comparable<Transactions> {
     String mTitle = "";
     String mCategory = "";
     Date mDate = new Date();
+    UUID mUUID = UUID.randomUUID();
 
     String getType();
 
@@ -23,6 +25,9 @@ public interface Transactions extends Comparable<Transactions> {
     String getCategory();
 
     Date getDate();
+
+    void setUUID(UUID id);
+    UUID getUUID();
 
     @Override
     int compareTo(@NonNull Transactions o);

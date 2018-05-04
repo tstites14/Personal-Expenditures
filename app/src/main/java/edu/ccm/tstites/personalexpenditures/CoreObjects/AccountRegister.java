@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import edu.ccm.tstites.personalexpenditures.Database.AccountCursor;
 import edu.ccm.tstites.personalexpenditures.Database.AccountDBHelper;
@@ -116,6 +117,25 @@ public class AccountRegister {
         long longCashValue = pref.getLong("CurrentCash", 0);
 
         return Double.longBitsToDouble(longCashValue);
+    }
+
+    public Object findTransaction(String id) {
+        UUID uuid = UUID.fromString(id);
+        List<Receipt> receipts = getReceipts();
+        List<Paycheck> paychecks = getPaychecks();
+
+        for (int i = 0; i < receipts.size(); i++) {
+            if (receipts.get(i).getUUID().equals(uuid)) {
+                return receipts.get(i);
+            }
+        }
+        for (int i = 0; i < paychecks.size(); i++) {
+            if (paychecks.get(i).getUUID().equals(uuid)) {
+                return paychecks.get(i);
+            }
+        }
+
+        return null;
     }
 
     public static ContentValues getCV(Receipt receipt) {

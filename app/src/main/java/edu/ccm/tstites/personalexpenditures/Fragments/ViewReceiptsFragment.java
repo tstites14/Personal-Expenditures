@@ -1,9 +1,12 @@
 package edu.ccm.tstites.personalexpenditures.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Paycheck;
@@ -32,6 +36,24 @@ import edu.ccm.tstites.personalexpenditures.R;
 public class ViewReceiptsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RVAdapter mAdapter;
+
+    OnListItemSelected mCallback;
+
+    public interface OnListItemSelected {
+        void onItemSelected(int position, String type, UUID id);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        AppCompatActivity activity = (AppCompatActivity) context;
+
+        try {
+            mCallback = (OnListItemSelected) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnListItemSelected");
+        }
+    }
 
     @Nullable
     @Override
@@ -87,7 +109,14 @@ public class ViewReceiptsFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
+            List<Receipt> receipts = AccountRegister.get(getActivity()).getReceipts();
+            List<Paycheck> paychecks = AccountRegister.get(getActivity()).getPaychecks();
+            List<Transactions> transactions = getOrganizedTransactions(receipts, paychecks);
 
+            int position = RVHolder.this.getAdapterPosition();
+            String type = mType.getText().toString();
+            UUID id = transactions.get(position).getUUID();
+            mCallback.onItemSelected(position, type, id);
         }
     }
 
@@ -115,22 +144,18 @@ public class ViewReceiptsFragment extends Fragment {
             Log.i("VIEWRECEIPTS", "mTransactions size is: " + mTransactions.size());
             return mTransactions.size();
         }
+    }
 
-        private List<Transactions> getOrganizedTransactions(List<Receipt> receipts, List<Paycheck> paychecks) {
-            List<Transactions> organizedList = new ArrayList<>();
-            List<Date> listDates = new ArrayList<>();
+    private List<Transactions> getOrganizedTransactions(List<Receipt> receipts, List<Paycheck> paychecks) {
+        List<Transactions> organizedList = new ArrayList<>();
 
-            //Combines receipts and paychecks into one list
-            organizedList.addAll(receipts);
-            organizedList.addAll(paychecks);
+        //Combines receipts and paychecks into one list
+        organizedList.addAll(receipts);
+        organizedList.addAll(paychecks);
 
-            for (int i = 0; i < organizedList.size(); i++) {
-                listDates.add(i, organizedList.get(i).getDate());
-            }
+        //Sort organizedList by date in reverse order
+        Collections.sort(organizedList, Collections.<Transactions>reverseOrder());
 
-            Collections.sort(organizedList, Collections.<Transactions>reverseOrder());
-
-            return organizedList;
-        }
+        return organizedList;
     }
 }
