@@ -1,5 +1,6 @@
 package edu.ccm.tstites.personalexpenditures.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Paycheck;
+import edu.ccm.tstites.personalexpenditures.MainActivity;
 import edu.ccm.tstites.personalexpenditures.R;
 
 /**
@@ -42,6 +44,7 @@ public class AddPaycheckFragment extends Fragment {
                 paycheck.setEmployer(edtEmployer.getText().toString());
 
                 AccountRegister.get(getActivity()).addPaycheck(paycheck);
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
 

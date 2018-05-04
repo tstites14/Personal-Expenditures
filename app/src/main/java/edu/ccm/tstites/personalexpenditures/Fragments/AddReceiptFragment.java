@@ -1,5 +1,6 @@
 package edu.ccm.tstites.personalexpenditures.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Receipt;
+import edu.ccm.tstites.personalexpenditures.MainActivity;
 import edu.ccm.tstites.personalexpenditures.R;
 
 /**
@@ -63,6 +65,7 @@ public class AddReceiptFragment extends Fragment {
 
                 AccountRegister.get(getActivity()).addReceipt(receipt);
                 Log.i("ADDRECEIPT", "Save button clicked");
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -58,6 +59,8 @@ public class ViewReceiptsFragment extends Fragment {
 
     private class RVHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mReceiptImage;
+        TextView mDate;
+        TextView mType;
         TextView mTitle;
         TextView mCategory;
 
@@ -67,10 +70,17 @@ public class ViewReceiptsFragment extends Fragment {
             mTitle = itemView.findViewById(R.id.txt_title);
             mCategory = itemView.findViewById(R.id.txt_category);
             mReceiptImage = itemView.findViewById(R.id.receipt_image);
+            mDate = itemView.findViewById(R.id.txt_date);
+            mType = itemView.findViewById(R.id.txt_type);
             itemView.setOnClickListener(this);
         }
 
         public void bind(Transactions transaction) {
+            DateFormat dateFormat = DateFormat.getDateInstance();
+            String date = dateFormat.format(transaction.getDate());
+
+            mDate.setText(date);
+            mType.setText(transaction.getType());
             mTitle.setText(transaction.getTitle());
             mCategory.setText(transaction.getCategory());
         }

@@ -25,7 +25,7 @@ public class Paycheck implements Transactions, Comparable<Transactions>{
     public Paycheck() {
         mUUID = UUID.randomUUID();
         mDate = new Date();
-        mType = "PAYCHECK";
+        mType = "Paycheck";
     }
 
     public UUID getUUID() {

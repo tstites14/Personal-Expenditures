@@ -28,7 +28,7 @@ public class Receipt implements Transactions, Comparable<Transactions> {
     public Receipt() {
         mUUID = UUID.randomUUID();
         mDate = new Date();
-        mType = "RECEIPT";
+        mType = "Receipt";
     }
 
     public UUID getUUID() {
