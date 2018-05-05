@@ -56,6 +56,12 @@ public class AccountRegister {
                 new String[] {receipt.getUUID().toString()});
     }
 
+    public void deleteReceipt(Receipt receipt) {
+        mDB.delete(AccountDBSchema.Accounts.NAME,
+            AccountDBSchema.Accounts.Columns.UUID + " = ? ",
+            new String[] {receipt.getUUID().toString()});
+    }
+
     public void addPaycheck(Paycheck paycheck) {
         ContentValues cv = getCV(paycheck);
 
@@ -68,6 +74,12 @@ public class AccountRegister {
         mDB.update(AccountDBSchema.Paychecks.NAME, cv,
                 AccountDBSchema.Paychecks.Columns.UUID + " = ? ",
                 new String[] {paycheck.getUUID().toString()});
+    }
+
+    public void deletePaycheck(Paycheck paycheck) {
+        mDB.delete(AccountDBSchema.Paychecks.NAME,
+            AccountDBSchema.Paychecks.Columns.UUID + " = ? ",
+            new String[] {paycheck.getUUID().toString()});
     }
 
     public List<Receipt> getReceipts() {

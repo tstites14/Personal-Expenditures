@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class AddReceiptFragment extends Fragment {
     private EditText mCategory;
     private EditText mLocation;
     private EditText mCost;
+    private ImageButton mDeleteButton;
     private ImageView mReceiptImage;
     private File mImage;
     private ImageButton mSaveButton;
@@ -65,6 +67,14 @@ public class AddReceiptFragment extends Fragment {
         mLocation = v.findViewById(R.id.edt_location);
 
         mCost = v.findViewById(R.id.edt_cost);
+
+        mDeleteButton = v.findViewById(R.id.btn_deleteReceipt);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
 
         mReceiptImage = v.findViewById(R.id.add_receipt_image);
         final Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

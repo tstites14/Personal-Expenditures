@@ -22,30 +22,39 @@ import edu.ccm.tstites.personalexpenditures.R;
 
 public class AddPaycheckFragment extends Fragment {
 
-    private EditText edtPayAmount;
-    private EditText edtEmployer;
-    private ImageButton btnSavePaycheck;
+    private EditText mPayAmount;
+    private EditText mEmployer;
+    private ImageButton mDeletePaycheck;
+    private ImageButton mSavePaycheck;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_paycheck, container, false);
 
-        edtPayAmount = v.findViewById(R.id.edt_payAmount);
+        mPayAmount = v.findViewById(R.id.edt_payAmount);
 
-        edtEmployer = v.findViewById(R.id.edt_employer);
+        mEmployer = v.findViewById(R.id.edt_employer);
 
-        btnSavePaycheck = v.findViewById(R.id.btn_savePaycheck);
-        btnSavePaycheck.setOnClickListener(new View.OnClickListener() {
+        mDeletePaycheck = v.findViewById(R.id.btn_deletePaycheck);
+        mDeletePaycheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
+        mSavePaycheck = v.findViewById(R.id.btn_savePaycheck);
+        mSavePaycheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Paycheck paycheck = new Paycheck();
-                paycheck.setPayAmount(Double.parseDouble(edtPayAmount.getText().toString()));
-                paycheck.setEmployer(edtEmployer.getText().toString());
+                paycheck.setPayAmount(Double.parseDouble(mPayAmount.getText().toString()));
+                paycheck.setEmployer(mEmployer.getText().toString());
 
                 AccountRegister.get(getActivity()).addPaycheck(paycheck);
                 AccountRegister.get(getActivity()).addCash(Double.parseDouble(
-                    edtPayAmount.getText().toString()));
+                    mPayAmount.getText().toString()));
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });

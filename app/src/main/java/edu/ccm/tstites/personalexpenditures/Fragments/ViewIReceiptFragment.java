@@ -41,6 +41,7 @@ public class ViewIReceiptFragment extends Fragment {
     private File mImage;
     private ImageView mReceiptImage;
 
+    private ImageButton mDelete;
     private ImageButton mSave;
 
 
@@ -53,21 +54,21 @@ public class ViewIReceiptFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add, container, false);
 
         String mID = this.getArguments().getString("transactionID");
-        final Receipt mReceipt = (Receipt) AccountRegister.get(getActivity()).findTransaction(mID);
+        final Receipt receipt = (Receipt) AccountRegister.get(getActivity()).findTransaction(mID);
 
-        mImage = AccountRegister.get(getActivity()).getPhotoFile(mReceipt);
+        mImage = AccountRegister.get(getActivity()).getPhotoFile(receipt);
 
         mTitle = v.findViewById(R.id.edt_title);
-        mTitle.setText(mReceipt.getTitle());
+        mTitle.setText(receipt.getTitle());
 
         mCategory = v.findViewById(R.id.edt_category);
-        mCategory.setText(mReceipt.getCategory());
+        mCategory.setText(receipt.getCategory());
 
         mLocation = v.findViewById(R.id.edt_location);
-        mLocation.setText(mReceipt.getLocation());
+        mLocation.setText(receipt.getLocation());
 
         mCost = v.findViewById(R.id.edt_cost);
-        mCost.setText(String.valueOf(mReceipt.getCost()));
+        mCost.setText(String.valueOf(receipt.getCost()));
 
         mReceiptImage = v.findViewById(R.id.add_receipt_image);
         mReceiptImage.setImageBitmap((mImage != null) ? getImage(mImage) : getImage(R.drawable.null_image));
@@ -95,19 +96,28 @@ public class ViewIReceiptFragment extends Fragment {
             }
         });
 
+        mDelete = v.findViewById(R.id.btn_deleteReceipt);
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegister.get(getActivity()).addCash(receipt.getCost());
+                AccountRegister.get(getActivity()).deleteReceipt(receipt);
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
         mSave = v.findViewById(R.id.btn_saveReceipt);
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AccountRegister.get(getActivity()).addCash(Double.parseDouble(
-                        mCost.getText().toString()) - mReceipt.getCost());
-                mReceipt.setTitle(mTitle.getText().toString());
-                mReceipt.setCategory(mCategory.getText().toString());
-                mReceipt.setLocation(mLocation.getText().toString());
-                mReceipt.setCost(Double.parseDouble(mCost.getText().toString()));
-                //receipt.setImage();
+                        mCost.getText().toString()) - receipt.getCost());
+                receipt.setTitle(mTitle.getText().toString());
+                receipt.setCategory(mCategory.getText().toString());
+                receipt.setLocation(mLocation.getText().toString());
+                receipt.setCost(Double.parseDouble(mCost.getText().toString()));
 
-                AccountRegister.get(getActivity()).updateReceipt(mReceipt);
+                AccountRegister.get(getActivity()).updateReceipt(receipt);
                 Log.i("ADDRECEIPT", "Save button clicked");
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }

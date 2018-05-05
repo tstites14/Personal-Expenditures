@@ -28,7 +28,8 @@ public class ViewIPaycheckFragment extends Fragment {
 
     EditText mPayAmount;
     EditText mEmployer;
-    ImageButton btnSave;
+    ImageButton mDelete;
+    ImageButton mSave;
 
     @Nullable
     @Override
@@ -44,8 +45,18 @@ public class ViewIPaycheckFragment extends Fragment {
         mEmployer = v.findViewById(R.id.edt_employer);
         mEmployer.setText(paycheck.getEmployer());
 
-        btnSave = v.findViewById(R.id.btn_savePaycheck);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        mDelete = v.findViewById(R.id.btn_deletePaycheck);
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegister.get(getActivity()).subtractCash(paycheck.getPayAmount());
+                AccountRegister.get(getActivity()).deletePaycheck(paycheck);
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
+        mSave = v.findViewById(R.id.btn_savePaycheck);
+        mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AccountRegister.get(getActivity()).addCash(
