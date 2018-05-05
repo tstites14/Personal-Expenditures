@@ -28,27 +28,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/edittext_back"
         android:hint="@string/edt_employer"
+        android:inputType="text"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_payAmount" />
 
     <ImageButton
-        android:id="@+id/btn_savePaycheck"
-        android:layout_width="175dp"
+        android:id="@+id/btn_deletePaycheck"
+        android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/button"
-        android:src="@drawable/save_receipt"
-        android:contentDescription="@string/img_saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/delete_image"
+        android:contentDescription="@string/img_delteButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_employer" />
+
+    <ImageButton
+        android:id="@+id/btn_savePaycheck"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/button"
+        android:contentDescription="@string/img_saveButton"
+        android:src="@drawable/save_receipt"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_employer" />
 </android.support.constraint.ConstraintLayout>
