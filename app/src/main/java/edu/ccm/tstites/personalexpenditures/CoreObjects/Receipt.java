@@ -19,10 +19,9 @@ public class Receipt implements Transactions, Comparable<Transactions> {
     private String mLocation;
     private double mCost;
     private Date mDate;
-    private File mReceiptImage;
 
     private String mType;
-
+    private String mImage;
 
 
     public Receipt() {
@@ -79,12 +78,12 @@ public class Receipt implements Transactions, Comparable<Transactions> {
         this.mDate = date;
     }
 
-    public File getReceiptImage() {
-        return mReceiptImage;
+    public void setImage(String  image) {
+        mImage = image;
     }
 
-    public void setReceiptImage(File mReceiptImage) {
-        this.mReceiptImage = mReceiptImage;
+    public String getReceiptImage() {
+        return "IMG_" + getUUID().toString() + ".jpg";
     }
 
     public String getType() {

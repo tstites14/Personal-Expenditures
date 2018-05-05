@@ -44,7 +44,6 @@ public class ViewReceiptsActivity extends FragmentActivity
             fragment = new ViewIPaycheckFragment();
         }
 
-        //
         Bundle args = new Bundle();
         args.putString("transactionID", id.toString());
         fragment.setArguments(args);

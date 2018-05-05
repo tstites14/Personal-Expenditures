@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -135,6 +136,11 @@ public class AccountRegister {
         return Double.longBitsToDouble(longCashValue);
     }
 
+    public File getPhotoFile(Receipt receipt) {
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, receipt.getReceiptImage());
+    }
+
     public Object findTransaction(String id) {
         UUID uuid = UUID.fromString(id);
         List<Receipt> receipts = getReceipts();
@@ -163,6 +169,7 @@ public class AccountRegister {
         cv.put(AccountDBSchema.Accounts.Columns.DATE, receipt.getDate().getTime());
         cv.put(AccountDBSchema.Accounts.Columns.LOCATION, receipt.getLocation());
         cv.put(AccountDBSchema.Accounts.Columns.COST, receipt.getCost());
+        cv.put(AccountDBSchema.Accounts.Columns.IMAGE, receipt.getReceiptImage());
 
         return cv;
     }

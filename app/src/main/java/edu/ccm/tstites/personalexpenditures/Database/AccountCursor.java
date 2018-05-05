@@ -26,6 +26,7 @@ public class AccountCursor extends CursorWrapper {
         String category = getString(getColumnIndex(AccountDBSchema.Accounts.Columns.CATEGORY));
         String location = getString(getColumnIndex(AccountDBSchema.Accounts.Columns.LOCATION));
         String cost = getString(getColumnIndex(AccountDBSchema.Accounts.Columns.COST));
+        String image = getString(getColumnIndex(AccountDBSchema.Accounts.Columns.IMAGE));
 
         Receipt receipt = new Receipt();
         receipt.setUUID(UUID.fromString(id));
@@ -34,6 +35,7 @@ public class AccountCursor extends CursorWrapper {
         receipt.setCategory(category);
         receipt.setLocation(location);
         receipt.setCost(Double.parseDouble(cost));
+        receipt.setImage(image);
 
         return receipt;
     }

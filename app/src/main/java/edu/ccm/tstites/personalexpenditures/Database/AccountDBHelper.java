@@ -29,7 +29,8 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                 Accounts.Columns.CATEGORY + ", " +
                 Accounts.Columns.DATE + ", " +
                 Accounts.Columns.LOCATION + ", " +
-                Accounts.Columns.COST + ")");
+                Accounts.Columns.COST + ", " +
+                Accounts.Columns.IMAGE + ")");
 
         db.execSQL("CREATE TABLE " + Paychecks.NAME +
         "(_id integer primary key autoincrement, " +

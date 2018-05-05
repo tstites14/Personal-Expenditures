@@ -1,10 +1,17 @@
 package edu.ccm.tstites.personalexpenditures.Fragments;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import java.io.File;
+import java.util.List;
 
 import edu.ccm.tstites.personalexpenditures.CoreObjects.AccountRegister;
 import edu.ccm.tstites.personalexpenditures.CoreObjects.Receipt;
@@ -24,12 +34,24 @@ import edu.ccm.tstites.personalexpenditures.R;
 
 public class AddReceiptFragment extends Fragment {
 
+    private Receipt mReceipt = new Receipt();
+
     private EditText mTitle;
     private EditText mCategory;
     private EditText mLocation;
     private EditText mCost;
     private ImageView mReceiptImage;
+    private File mImage;
     private ImageButton mSaveButton;
+
+    private static final int REQUEST_CAMERA = 1;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mImage = AccountRegister.get(getActivity()).getPhotoFile(mReceipt);
+    }
 
     @Nullable
     @Override
@@ -45,10 +67,27 @@ public class AddReceiptFragment extends Fragment {
         mCost = v.findViewById(R.id.edt_cost);
 
         mReceiptImage = v.findViewById(R.id.add_receipt_image);
+        final Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        PackageManager packageManager = getActivity().getPackageManager();
+        boolean hasCameraApp = mImage != null  &&imageIntent.resolveActivity(packageManager) != null;
+        mReceiptImage.setEnabled(hasCameraApp);
         mReceiptImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("ADDRECEIPT", "Receipt image clicked");
+                Uri uri = FileProvider.getUriForFile(getActivity(),
+                    "edu.ccm.tstites.personalexpenditures.fileprovider", mImage);
+                imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+                List<ResolveInfo> cameras = getActivity().getPackageManager()
+                    .queryIntentActivities(imageIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+                for (ResolveInfo info : cameras) {
+                    getActivity().grantUriPermission(info.activityInfo.packageName, uri,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+
+                startActivityForResult(imageIntent, REQUEST_CAMERA);
             }
         });
 
@@ -56,14 +95,13 @@ public class AddReceiptFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Receipt receipt = new Receipt();
-                receipt.setTitle(mTitle.getText().toString());
-                receipt.setCategory(mCategory.getText().toString());
-                receipt.setLocation(mLocation.getText().toString());
-                receipt.setCost(Double.parseDouble(mCost.getText().toString()));
-                receipt.setReceiptImage(null);
+                mReceipt.setTitle(mTitle.getText().toString());
+                mReceipt.setCategory(mCategory.getText().toString());
+                mReceipt.setLocation(mLocation.getText().toString());
+                mReceipt.setCost(Double.parseDouble(mCost.getText().toString()));
+                mReceipt.setImage(mImage.getAbsolutePath());
 
-                AccountRegister.get(getActivity()).addReceipt(receipt);
+                AccountRegister.get(getActivity()).addReceipt(mReceipt);
                 AccountRegister.get(getActivity()).subtractCash(Double.parseDouble(
                     mCost.getText().toString()));
                 Log.i("ADDRECEIPT", "Save button clicked");
@@ -72,5 +110,25 @@ public class AddReceiptFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CAMERA) {
+            setImageFromFile(mImage, mReceiptImage);
+        }
+    }
+
+    private void setImageFromFile(File file, ImageView imageView) {
+        if (file.exists()) {
+            Bitmap imgBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            Log.i("ADDRECEIPT", file.getAbsolutePath());
+
+            imageView.setImageBitmap(imgBitmap);
+        } else {
+            imageView.setImageResource(R.drawable.null_image);
+        }
     }
 }
