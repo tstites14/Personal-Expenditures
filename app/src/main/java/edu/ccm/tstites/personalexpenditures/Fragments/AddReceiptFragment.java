@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -79,22 +81,22 @@ public class AddReceiptFragment extends Fragment {
         mReceiptImage = v.findViewById(R.id.add_receipt_image);
         final Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         PackageManager packageManager = getActivity().getPackageManager();
-        boolean hasCameraApp = mImage != null  &&imageIntent.resolveActivity(packageManager) != null;
+        boolean hasCameraApp = mImage != null && imageIntent.resolveActivity(packageManager) != null;
         mReceiptImage.setEnabled(hasCameraApp);
         mReceiptImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("ADDRECEIPT", "Receipt image clicked");
                 Uri uri = FileProvider.getUriForFile(getActivity(),
-                    "edu.ccm.tstites.personalexpenditures.fileprovider", mImage);
+                        "edu.ccm.tstites.personalexpenditures.fileprovider", mImage);
                 imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
                 List<ResolveInfo> cameras = getActivity().getPackageManager()
-                    .queryIntentActivities(imageIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                        .queryIntentActivities(imageIntent, PackageManager.MATCH_DEFAULT_ONLY);
 
                 for (ResolveInfo info : cameras) {
                     getActivity().grantUriPermission(info.activityInfo.packageName, uri,
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 }
 
                 startActivityForResult(imageIntent, REQUEST_CAMERA);
@@ -105,6 +107,13 @@ public class AddReceiptFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isReceiptFilled()) {
+                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.invald_data);
+                    mSaveButton.startAnimation(anim);
+
+                    return;
+                }
+
                 mReceipt.setTitle(mTitle.getText().toString());
                 mReceipt.setCategory(mCategory.getText().toString());
                 mReceipt.setLocation(mLocation.getText().toString());
@@ -113,7 +122,7 @@ public class AddReceiptFragment extends Fragment {
 
                 AccountRegister.get(getActivity()).addReceipt(mReceipt);
                 AccountRegister.get(getActivity()).subtractCash(Double.parseDouble(
-                    mCost.getText().toString()));
+                        mCost.getText().toString()));
                 Log.i("ADDRECEIPT", "Save button clicked");
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
@@ -141,4 +150,12 @@ public class AddReceiptFragment extends Fragment {
             imageView.setImageResource(R.drawable.null_image);
         }
     }
+
+    private boolean isReceiptFilled() {
+        return (mTitle.getText().toString().equals("") ||
+                mCategory.getText().toString().equals("") ||
+                mLocation.getText().toString().equals("") ||
+                mCost.getText().toString().equals(""));
+    }
 }
+

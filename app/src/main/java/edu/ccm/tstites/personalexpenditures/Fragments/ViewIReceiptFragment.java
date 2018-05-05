@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -110,6 +112,13 @@ public class ViewIReceiptFragment extends Fragment {
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isReceiptFilled()) {
+                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.invald_data);
+                    mSave.startAnimation(anim);
+
+                    return;
+                }
+
                 AccountRegister.get(getActivity()).addCash(Double.parseDouble(
                         mCost.getText().toString()) - receipt.getCost());
                 receipt.setTitle(mTitle.getText().toString());
@@ -152,5 +161,12 @@ public class ViewIReceiptFragment extends Fragment {
 
     private Bitmap getImage(int id) {
         return BitmapFactory.decodeResource(getResources(), id);
+    }
+
+    private boolean isReceiptFilled() {
+        return (mTitle.getText().toString().equals("") ||
+                mCategory.getText().toString().equals("") ||
+                mLocation.getText().toString().equals("") ||
+                mCost.getText().toString().equals(""));
     }
 }

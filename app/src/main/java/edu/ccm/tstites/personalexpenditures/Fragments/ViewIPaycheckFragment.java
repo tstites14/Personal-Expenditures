@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -59,6 +61,13 @@ public class ViewIPaycheckFragment extends Fragment {
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isPaycheckFilled()) {
+                    Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.invald_data);
+                    mSave.startAnimation(anim);
+
+                    return;
+                }
+
                 AccountRegister.get(getActivity()).addCash(
                         Double.parseDouble(mPayAmount.getText().toString()) - paycheck.getPayAmount());
                 paycheck.setPayAmount(Double.parseDouble(mPayAmount.getText().toString()));
@@ -70,5 +79,10 @@ public class ViewIPaycheckFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private boolean isPaycheckFilled() {
+        return (mPayAmount.getText().toString().equals("") ||
+                mEmployer.getText().toString().equals(""));
     }
 }
