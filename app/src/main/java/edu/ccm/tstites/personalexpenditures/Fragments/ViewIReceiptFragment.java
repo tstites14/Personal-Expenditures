@@ -144,11 +144,22 @@ public class ViewIReceiptFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mReceiptImage.setImageBitmap(null);
+        System.gc();
+    }
+
     private void setImageFromFile(File file, ImageView imageView) {
         if (file.exists()) {
-            Bitmap imgBitmap = getImage(file);
-            Log.i("ADDRECEIPT", file.getAbsolutePath());
-
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.outHeight = options.outHeight / 8;
+            options.outWidth = options.outWidth / 8;
+            options.inSampleSize = 64;
+            options.inJustDecodeBounds = false;
+            Bitmap imgBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+            Log.i("VIEW", String.valueOf(imgBitmap.getByteCount()));
             imageView.setImageBitmap(imgBitmap);
         } else {
             imageView.setImageResource(R.drawable.null_image);
@@ -156,7 +167,12 @@ public class ViewIReceiptFragment extends Fragment {
     }
 
     private Bitmap getImage(File file) {
-        return BitmapFactory.decodeFile(file.getAbsolutePath());
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.outHeight = options.outHeight / 4;
+        options.outWidth = options.outWidth / 4;
+        options.inSampleSize = 12;
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
     }
 
     private Bitmap getImage(int id) {

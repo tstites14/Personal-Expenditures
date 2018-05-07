@@ -140,10 +140,22 @@ public class AddReceiptFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mReceiptImage.setImageBitmap(null);
+        System.gc();
+    }
+
     private void setImageFromFile(File file, ImageView imageView) {
         if (file.exists()) {
-            Bitmap imgBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            Log.i("ADDRECEIPT", file.getAbsolutePath());
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.outHeight = options.outHeight / 4;
+            options.outWidth = options.outWidth / 4;
+            options.inSampleSize = 12;
+            options.inJustDecodeBounds = false;
+            Bitmap imgBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+            Log.i("VIEW", String.valueOf(imgBitmap.getByteCount()));
 
             imageView.setImageBitmap(imgBitmap);
         } else {
