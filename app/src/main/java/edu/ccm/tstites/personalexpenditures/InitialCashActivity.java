@@ -21,7 +21,7 @@ public class InitialCashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial_cash);
 
         SharedPreferences pref = getSharedPreferences("CashValues", MODE_PRIVATE);
-        if (pref.getLong("CurrentCash", -1) != -1) {
+        if (pref.getLong("CurrentCash", Long.MAX_VALUE) != Long.MAX_VALUE) {
             startActivity(new Intent(InitialCashActivity.this, MainActivity.class));
         }
 
