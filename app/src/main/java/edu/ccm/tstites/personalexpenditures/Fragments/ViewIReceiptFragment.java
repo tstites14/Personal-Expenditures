@@ -119,7 +119,7 @@ public class ViewIReceiptFragment extends Fragment {
                     return;
                 }
 
-                AccountRegister.get(getActivity()).addCash(Double.parseDouble(
+                AccountRegister.get(getActivity()).subtractCash(Double.parseDouble(
                         mCost.getText().toString()) - receipt.getCost());
                 receipt.setTitle(mTitle.getText().toString());
                 receipt.setCategory(mCategory.getText().toString());
