@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private int getCashColor(double cash) {
     if (cash >= 100) {
         return getResources().getColor(R.color.positiveCashValue);
