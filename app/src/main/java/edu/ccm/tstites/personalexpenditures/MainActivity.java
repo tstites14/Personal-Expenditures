@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int getCashColor(double cash) {
-    if (cash > 100) {
+    if (cash >= 100) {
         return getResources().getColor(R.color.positiveCashValue);
     } else if (cash > 0 && cash < 100) {
         return getResources().getColor(R.color.moderateCashValue);
